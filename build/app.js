@@ -1,3 +1,4 @@
+var app =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -63,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10295,13 +10296,43 @@ return jQuery;
 
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+exports.ROCKET_BASE_URL = 'https://demo.rocket.chat';
 
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var jquery = __webpack_require__(0);
+const config = __webpack_require__(1);
+
+const login = (username, password) => {
+  jquery.ajax({
+    url: `${config.ROCKET_BASE_URL}/api/v1/login`,
+    method: 'POST',
+    data: {
+      username: username,
+      password: password,
+    }
+  });
+};
+
+const init = () => {
+  jquery('#login').submit((event) => {
+    event.preventDefault();
+    const username = jquery('#login #username').val();
+    const password = jquery('#login #password').val();
+    login(username, password);
+  });
+};
+
+exports.setJquery = (_jquery_) => {
+  jquery = _jquery_;
+};
+exports.login = login;
+exports.init = init;
 
 
 /***/ })
