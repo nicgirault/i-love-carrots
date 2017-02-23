@@ -10309,7 +10309,7 @@ var jquery = __webpack_require__(0);
 const config = __webpack_require__(1);
 
 const login = (username, password) => {
-  jquery.ajax({
+  return jquery.ajax({
     url: `${config.ROCKET_BASE_URL}/api/v1/login`,
     method: 'POST',
     data: {
@@ -10324,8 +10324,16 @@ const init = () => {
     event.preventDefault();
     const username = jquery('#login #username').val();
     const password = jquery('#login #password').val();
-    login(username, password);
+    login(username, password)
+    .catch((error) => {
+      notify(`Error: ${error.statusText}`);
+    });
   });
+};
+
+const notify = (message) => {
+  const snackbarContainer = document.querySelector('#toast');
+  snackbarContainer.MaterialSnackbar.showSnackbar({message});
 };
 
 exports.setJquery = (_jquery_) => {
